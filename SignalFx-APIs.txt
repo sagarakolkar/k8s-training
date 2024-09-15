@@ -1,3 +1,5 @@
+https://dev.splunk.com/observability/reference/api/detectors/latest
+
 https://api.us1.signalfx.com/v2/detector
 https://api.us1.signalfx.com/v2/slo
 https://api.us1.signalfx.com/v2/synthetics/tests/api
