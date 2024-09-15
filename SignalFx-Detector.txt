@@ -1,0 +1,57 @@
+{
+    "name": "JVM CPU Load detector",
+    "programText": "cpuLoad = data('jvm.cpu.load').percentile(pct=94).publish(label='cpuLoad'); detect(when(cpuLoad > 94)).publish('cpuLoad');",
+    "rules": [
+        {
+            "detectLabel": "cpuLoad",
+            "severity": "Info",
+            "description": "JVM CPU Load test",
+            "disabled": false,
+            "notifications": [
+                {
+                    "email": "akolkarsagar1@gmail.com",
+                    "type": "Email"
+                },
+                {
+                    "credentialId": "GW4y-gqA4AA",
+                    "type": "ServiceNow"
+                }
+            ],
+            "parameterizedBody": "{{#if anomalous}}\n\tRule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" triggered at {{dateTimeFormat timestamp format=\"full\"}}.\n{{else}}\n\tRule \"{{{ruleName}}}\" in detector \"{{{detectorName}}}\" cleared at {{dateTimeFormat timestamp format=\"full\"}}.\n{{/if}}\n\n{{#if anomalous}}\nTriggering condition: {{{readableRule}}}\n{{/if}}\n\nMean value of signal in the last {{event_annotations.current_window}}: {{inputs.summary.value}}\n{{#if anomalous}}Trigger threshold: {{inputs.fire_top.value}}\n{{else}}Clear threshold: {{inputs.clear_top.value}}.\n{{/if}}\n\n{{#notEmpty dimensions}}\nSignal details:\n{{{dimensions}}}\n{{/notEmpty}}\n\n{{#if anomalous}}\n{{#if runbookUrl}}Runbook: {{{runbookUrl}}}{{/if}}\n{{#if tip}}Tip: {{{tip}}}{{/if}}\n{{/if}}",
+            "parameterizedSubject": "Notification for {{{rulename}}} in detector {{{detectorName}}}",
+            "runbookUrl": "www.example.com",
+            "tip": "Check detector in Splunk Observability Cloud"
+        }
+    ],
+    "description": "JVM CPU Load detector. Monitors the CPU Load for the JVM, and reports overages.\n",
+    "detectorOrigin": "Standard",
+    "maxDelay": 60000,
+    "minDelay": 60000,
+    "packageSpecifications": "",
+    "tags": [
+        "dev",
+        "oregon",
+        "offline"
+    ],
+    "timezone": "America/Detroit",
+    "visualizationOptions": {
+        "disableSampling": false,
+        "publishLabelOptions": [
+            {
+                "displayName": "JVM CPU load",
+                "label": "cpuLoad",
+                "paletteIndex": 9,
+                "valuePrefix": "Avg ",
+                "valueSuffix": "pct",
+                "valueUnit": "Second"
+            }
+        ],
+        "showDataMarkers": true,
+        "showEventLines": true,
+        "time": {
+            "end": 1557693030000,
+            "start": 1557682230000,
+            "type": "absolute"
+        }
+    }
+}

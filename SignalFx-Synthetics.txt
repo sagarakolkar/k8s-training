@@ -1,0 +1,51 @@
+{
+    "test": {
+        "active": true,
+        "automaticRetries": 1,
+        "customProperties": [
+            {
+                "key": "Env",
+                "value": "production"
+            }
+        ],
+        "deviceId": 1,
+        "frequency": 5,
+        "locationIds": [
+            "aws-us-east-1"
+        ],
+        "name": "My API Test",
+        "requests": [
+            {
+                "configuration": {
+                    "body": "'{\"alert_name\":\"the service is\ndown\",\"url\":\"https://foo.com/bar\"}'\n",
+                    "headers": {
+                        "Accept": "application/json",
+                        "x-foo": "bar"
+                    },
+                    "name": "Get products",
+                    "requestMethod": "GET",
+                    "url": "https://dummyjson.com/products"
+                },
+                "setup": [
+                    {
+                        "extractor": "$.foo",
+                        "name": "First setup step",
+                        "source": "{'foo': 'bar'}",
+                        "type": "extract_json",
+                        "variable": "myVariable"
+                    }
+                ],
+                "validations": [
+                    {
+                        "actual": "{{response.code}}",
+                        "comparator": "equals",
+                        "expected": "200",
+                        "name": "My validation step",
+                        "type": "assert_numeric"
+                    }
+                ]
+            }
+        ],
+        "schedulingStrategy": "round_robin"
+    }
+}

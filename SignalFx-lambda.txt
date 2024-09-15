@@ -1,0 +1,18 @@
+import json
+
+
+def lambda_handler(event, context):
+    print(event)
+
+    greeter = 'World'
+    body = json.loads(event['body'])
+    
+    res = {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "*/*"
+        },
+        "body": "Hello, " + body['key1'] + "!"
+    }
+
+    return res

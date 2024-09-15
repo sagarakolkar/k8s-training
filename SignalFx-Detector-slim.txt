@@ -1,0 +1,23 @@
+{
+    "name": "EC2CPUAutoDetector for EC2 New",
+    "programText": "EC2CPUAutoDetectorNew = data('^aws.ec2.cpu.utilization', filter=filter('AWSUniqueId', 'i-037e018d3fa3972d1_us-east-1_723058730938'), extrapolation='last_value', maxExtrapolations=5).publish(label='EC2CPUAutoDetectorNew'); detect(when(EC2CPUAutoDetectorNew > threshold(0.1))).publish('EC2CPUAutoDetectorNew');",
+    "rules": [
+        {
+            "detectLabel": "EC2CPUAutoDetectorNew",
+            "severity": "Info",
+            "description": "EC2CPUAutoDetectorNew for EC2 New",
+            "disabled": false,
+            "notifications": [
+                {
+                    "email": "akolkarsagar1@gmail.com",
+                    "type": "Email"
+                },
+                {
+                    "credentialId": "GW4y-gqA4AA",
+                    "type": "ServiceNow"
+                }
+            ]
+        }
+    ],
+    "description": "EC2CPUAutoDetectorNew\n"
+}

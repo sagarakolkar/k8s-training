@@ -1,0 +1,40 @@
+(function executeRule(current, previous /*null when async*/) {
+
+try { 
+ //var r = new sn_ws.RESTMessageV2('SignalFx', 'SignalFx_GET');
+
+var restMessage = new sn_ws.RESTMessageV2();
+//restMessage.setBasicAuth("abc", "efgh");
+restMessage.setHttpMethod("post");
+restMessage.setEndpoint("https://6u1nz8x3k1.execute-api.us-east-1.amazonaws.com/default/signal");
+
+//override authentication profile 
+//authentication type ='basic'/ 'oauth2'
+//r.setAuthenticationProfile(authentication type, profile name);
+
+//set a MID server name if one wants to run the message on MID
+//r.setMIDServer('MY_MID_SERVER');
+
+//if the message is configured to communicate through ECC queue, either
+//by setting a MID server or calling executeAsync, one needs to set skip_sensor
+//to true. Otherwise, one may get an intermittent error that the response body is null
+//r.setEccParameter('skip_sensor', true);
+ 
+  //restMessage.setRequestBody("{\"key1\" : "+ current.severity +"}");
+ //restMessage.setRequestBody("{\"key1\" : \"value1\"}");
+ var sh_sev = current.category;
+ //restMessage.setRequestBody('{"key1":"'+sh_sev+'"}');
+ //var myObject = { 'key1' : sh_sev };   
+ //restMessage.setRequestBody(JSON.stringify(myObject));
+ restMessage.setRequestBody('{"key1" : "'+sh_sev+'"}');
+ var response = restMessage.execute();
+ var responseBody = response.getBody();
+ var httpStatus = response.getStatusCode();
+ current.description = response.getBody();
+ current.update();
+}
+catch(ex) {
+ var message = ex.message;
+}
+
+})(current, previous);

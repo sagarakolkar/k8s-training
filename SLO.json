@@ -1,0 +1,62 @@
+{
+  "id": "GXha2dtA0AA",
+  "name": "cartservice:GetCart",
+  "type": "RequestBased",
+  "description": null,
+  "inputs": {
+    "programText": "G = data('spans.count', filter=filter('sf_error', 'false') and filter('sf_environment', 'demo') and filter('sf_service', 'cartservice') and filter('sf_operation', 'GetCart') and not filter('sf_dimensionalized', 'true'), extrapolation='zero')\nT = data('spans.count', filter=filter('sf_environment', 'demo') and filter('sf_service', 'cartservice') and filter('sf_operation', 'GetCart') and not filter('sf_dimensionalized', 'true'), extrapolation='zero')",
+    "goodEventsLabel": "G",
+    "totalEventsLabel": "T"
+  },
+  "targets": [
+    {
+      "slo": 95,
+      "sloAlertRules": [
+        {
+          "type": "BREACH",
+          "rules": [
+            {
+              "severity": "Major",
+              "notifications": [
+                {
+                  "type": "Email",
+                  "email": "akolkarsagar1@gmail.com"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ERROR_BUDGET_LEFT",
+          "rules": [
+            {
+              "severity": "Major",
+              "notifications": [
+                {
+                  "type": "Email",
+                  "email": "akolkarsagar1@gmail.com"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "BURN_RATE",
+          "rules": [
+            {
+              "severity": "Major",
+              "notifications": [
+                {
+                  "type": "Email",
+                  "email": "akolkarsagar1@gmail.com"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "RollingWindow",
+      "compliancePeriod": "30d"
+    }
+  ]
+}
