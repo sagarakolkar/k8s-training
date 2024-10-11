@@ -1,5 +1,9 @@
 https://dev.splunk.com/observability/reference/api/detectors/latest
-
+https://api.<REALM>.signalfx.com/v2/chart?name=myChart
+https://api.us1.signalfx.com/v2/alertmuting
+https://api.us1.signalfx.com/v2/chart
+https://api.us1.signalfx.com/v2/dashboard
+https://api.us1.signalfx.com/v2/dashboard/simple
 https://api.us1.signalfx.com/v2/detector
 https://api.us1.signalfx.com/v2/slo
 https://api.us1.signalfx.com/v2/synthetics/tests/api
