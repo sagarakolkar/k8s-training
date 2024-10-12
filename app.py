@@ -6,8 +6,10 @@ import regex
 from pprint import pprint
 from PyInquirer import style_from_dict, Token, prompt, Separator
 from PyInquirer import Validator, ValidationError
-
 from pyfiglet import Figlet
+import json
+import requests
+
 f = Figlet(font='slant')
 print(f.renderText('SignalFX Observability'))
 
@@ -19,6 +21,10 @@ style = style_from_dict({
     Token.Question: '',
 })
 
+def replace_all(text, dic):
+    for i, j in dic.items():
+        text = text.replace(i, j)
+    return text
 
 class PhoneNumberValidator(Validator):
     def validate(self, document):
@@ -30,7 +36,7 @@ class PhoneNumberValidator(Validator):
 
 class CMDBIDValidator(Validator):
     def validate(self, document):
-        ok = regex.match('[a-z]{3}[1-9]{2}', document.text)
+        ok = regex.match('[A-Za-z]{3}[0-9]{2}', document.text)
         if not ok:
             raise ValidationError(
                 message='Please enter a valid Application Prefix / CMDB ID ',
@@ -38,7 +44,15 @@ class CMDBIDValidator(Validator):
 
 class ServiceNameValidator(Validator):
     def validate(self, document):
-        ok = regex.match('^[a-z1-9]{5}', document.text)
+        ok = regex.match('^[A-Za-z0-9]{5}', document.text)
+        if not ok:
+            raise ValidationError(
+                message='Please enter a valid Service Name ',
+                cursor_position=len(document.text))  # Move cursor to end
+
+class ServiceURLValidator(Validator):
+    def validate(self, document):
+        ok = regex.match('^https://[a-z1-9].*.\.com', document.text)
         if not ok:
             raise ValidationError(
                 message='Please enter a valid Service Name ',
@@ -69,6 +83,12 @@ questions = [
         'message': 'What\'s your service name ?',
         'validate': ServiceNameValidator
     },
+        {
+        'type': 'input',
+        'name': 'Service_URL',
+        'message': 'What\'s your service HTTP URL ?',
+        'validate': ServiceURLValidator
+    },
     {
         'type': 'list',
         'name': 'Environment_Name',
@@ -90,13 +110,10 @@ questions = [
         'choices': [
             Separator('= The location ='),
             {
-                'name': 'US-East-1'
+                'name': 'aws-us-east-1'
             },
             {
-                'name': 'US-West-2'
-            },
-            {
-                'name': 'AP-South-1'
+                'name': 'aws-us-west-2'
             }
         ],
         'validate': lambda answer: 'You must choose at least one location.' \
@@ -118,5 +135,34 @@ questions = [
 ]
 
 answers = prompt(questions, style=style)
-print('Synthetic Test Configuration:')
-pprint(answers)
+#data = json.loads(answers)
+print('Synthetic Test Location:', answers["Test_Locaiton"])
+
+syntheticDict = { "${ENV_NAME}": answers["Environment_Name"], "${CMDB_ID}": answers["CMDB_ID"], "${TEST_LOCATION}": answers["Test_Locaiton"], "${SERVICE_NAME}": answers["Service_Name"]}
+
+with open('synthetic-http.json', 'r') as f:
+    data = json.load(f)
+
+data["test"]["locationIds"] =  answers["Test_Locaiton"]
+data["test"]["url"] =  answers["Service_URL"]
+data["test"]["name"] =  answers["CMDB_ID"] + "-" + answers["Service_Name"] +"-" + answers["Environment_Name"]
+data["test"]["body"] = "{'alert_name':'the service is down','url':" + answers["Service_URL"] + "}'",
+
+#replace_all(data, syntheticDict)
+#print(data)
+
+
+url = f'https://api.us1.signalfx.com/v2/synthetics/tests/http'
+
+headers = {
+    'Content-Type': 'application/json',
+    'X-SF-TOKEN': ''
+}
+response = requests.post(url, headers=headers, data=json.dumps(data))
+
+if response.status_code == 201:
+    print("############# Successfully created Synthetic Test ################# ")
+    print(response.json())
+else:
+    print(f"############ Failed to update hostname. Status Code: {response.status_code} #################")
+    print(response.text)
