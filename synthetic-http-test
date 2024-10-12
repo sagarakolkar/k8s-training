@@ -1,0 +1,25 @@
+{
+    "test": {
+        "active": true,
+        "automaticRetries": 1,
+        "body": "'{\"alert_name\":\"the service is\ndown\",\"url\":\"https://foo.com/bar\"}'\n",
+        "frequency": 5,
+        "locationIds": [
+            "${TEST_LOCATION}"
+        ],
+        "name": "${CMDB_ID}-${SERVICE_NAME}-${ENV_NAME} HTTP Uptime Test",
+        "requestMethod": "GET",
+        "schedulingStrategy": "round_robin",
+        "url": "${APP_URL}",
+        "userAgent": "Mozilla/5.0 (iPhone13,2; U; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/15E148 Safari/602.1",
+        "validations": [
+            {
+                "actual": "{{response.code}}",
+                "comparator": "equals",
+                "expected": "200",
+                "type": "assert_numeric"
+            }
+        ],
+        "verifyCertificates": true
+    }
+}
