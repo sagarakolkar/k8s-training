@@ -1,0 +1,12 @@
+python setup.py sdist
+python setup.py bdist_wheel
+
+pip install --index-url https://@k8sobserve.jfrog.io/artifactory/api/pypi/tsignalfx-virtual/simple/ tsignal
+pip uninstall tsignal
+
+python -m tsignal
+twine upload dist/* --repository-url https://k8sobserve.jfrog.io/artifactory/api/pypi/tsignalfx
+
+
+set SFX_APY_KEY=
+set SFX_API_ENDPOINT=https://api.us1.signalfx.com
