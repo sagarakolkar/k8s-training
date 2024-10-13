@@ -1,0 +1,17 @@
+{
+    "timeRange": "2024-10-01T12:00:00Z/2024-10-08T00:00:00Z",
+    "tagFilters": [
+        {
+            "name": "sf_service",
+            "operator": "equals",
+            "scope": "GLOBAL",
+            "value": "cartservice"
+        },
+         {
+            "name": "sf_environment",
+            "operator": "equals",
+            "scope": "GLOBAL",
+            "value": "demo"
+        }
+    ]
+}
