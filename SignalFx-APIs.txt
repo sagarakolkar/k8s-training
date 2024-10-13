@@ -9,3 +9,5 @@ https://api.us1.signalfx.com/v2/slo
 https://api.us1.signalfx.com/v2/synthetics/tests/api
 https://api.us1.signalfx.com/v2/integration
 https://api.us1.signalfx.com/v2/incident
+
+https://dev.splunk.com/observability/docs/apibasics/api_list
