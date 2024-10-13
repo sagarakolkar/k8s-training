@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+#from collections.abc import Mapping
 from __future__ import print_function, unicode_literals
 import regex
 
