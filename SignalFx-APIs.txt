@@ -10,7 +10,8 @@ https://api.us1.signalfx.com/v2/synthetics/tests/api
 https://api.us1.signalfx.com/v2/integration
 https://api.us1.signalfx.com/v2/incident
 https://api.us1.signalfx.com/v2/apm/topology
-
+Clone Dashboard - https://dev.splunk.com/observability/docs/chartsdashboards/dashboard_groups_overview/#Add-a-mirrored-dashboard-to-a-group
+https://api.us1.signalfx.com/v2/dashboardgroup/GalVfjvA0Aw/dashboard
 https://dev.splunk.com/observability/docs/apibasics/api_list
 
 API	Description	Method	Endpoint
