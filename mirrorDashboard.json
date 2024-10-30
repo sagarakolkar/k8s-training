@@ -1,0 +1,35 @@
+{
+    "authorizedWriters": {
+        "teams": [],
+        "users": []
+    },
+    "created": 1729695514931,
+    "creator": "GWzYm0NAwAA",
+    "dashboardConfigs": [
+        {
+            "configId": "GalVfjvA0A4",
+            "dashboardId": "GalVfjvA0A0",
+            "descriptionOverride": null,
+            "filtersOverride": null,
+            "nameOverride": null
+        },
+        {
+            "configId": "GbIXDXUAwAA",
+            "dashboardId": "GbIXDAHA0AE",
+            "descriptionOverride": null,
+            "filtersOverride": null,
+            "nameOverride": null
+        }
+    ],
+    "dashboards": [
+        "GalVfjvA0A0","GbIXDAHA0AE"
+    ],
+    "description": "akolkarsagar1@gmail.com's Dashboard Group",
+    "email": "akolkarsagar1@gmail.com",
+    "id": "GalVfjvA0Aw",
+    "lastUpdated": 1729695516096,
+    "lastUpdatedBy": "GWzYm0NAwAA",
+    "name": "akolkarsagar1@gmail.com",
+    "permissions": null,
+    "teams": []
+}
