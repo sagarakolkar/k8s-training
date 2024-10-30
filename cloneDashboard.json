@@ -1,0 +1,5 @@
+#https://dev.splunk.com/observability/docs/chartsdashboards/dashboard_groups_overview/#Add-a-mirrored-dashboard-to-a-group
+#https://api.us1.signalfx.com/v2/dashboardgroup/GalVfjvA0Aw/dashboard
+{
+   "sourceDashboard" : "GakZLTDAwAo"
+}
