@@ -13,7 +13,16 @@
                 "ec2:*",
                 "cloudformation:*",
                 "cloud9:*",
-                "eks:*"
+                "eks:*",
+                "kms:*",
+                "efs:*",
+                "ebs:*",
+                "secretsmanager:*",
+                "sns:*",
+                "sqs:*",
+                "elasticloadbalancing:*",
+                "events:*",
+                "msk:*"
             ],
             "Resource": "*"
         }
