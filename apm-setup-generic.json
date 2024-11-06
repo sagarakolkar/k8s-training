@@ -1,0 +1,66 @@
+{
+  "appCMDBId": "APP01",
+  "appType": "API",
+  "appName": "My_APP",
+  "appEnvironments": [
+    "SIT",
+    "UAT"
+  ],
+  "APM": {
+    "SLO": [
+      {
+        "Service_Name": "cartservice",
+        "Endpoint_Name": "addItem",
+        "Indicator_Type": "Request Latency",
+        "Target_Percentage": 99,
+        "Latency_In_Milliseconds": 100,
+        "Compliance_Window_In_Days": 30,
+        "Alert_Type": [
+          {
+            "BreachEvent": "Info"
+          },
+          {
+            "BurnRate": "Info"
+          }
+        ],
+        "Alert_Recipient": "MoogSoft"
+      }
+    ],
+    "Detector": [
+      {
+        "Service_Name": "cartservice",
+        "Endpoint_Name": "addItem",
+        "Indicator_Type": "Error Rate",
+        "Trigger_Threshold_Percentage": 1,
+        "Clear_Threshold_Percentage": 0,
+        "Trigger_Duration_In_Mins": 5,
+        "Clear_Duration_In_Mins": 2,
+        "Alert_Severity": "Info",
+        "Alert_Recipient": "MoogSoft"
+      }
+    ],
+    "Dashboard": [
+      {
+        "isMirror": false,
+        "dashboardGroup": {
+          "create": false,
+          "dashboardGroupName": "APP-DG",
+          "Group_Description": "",
+          "Group_Permissions": []
+        },
+        "Dashboard_Scope": [
+          "APM",
+          "SYNTHETIC"
+        ]
+      },
+      {
+        "isMirror": true,
+        "Source_Dashboard_Name": "Service",
+        "Source_Dashboard_Group": "APM services",
+        "Destination_Dashboard_Name": "APP01-Service",
+        "Destination_Dashboard_Description": "APP01-Service Mirrored Dashboard",
+        "Destination_Dashboard_Group": "APP01-DG"
+      }
+    ]
+  }
+}
