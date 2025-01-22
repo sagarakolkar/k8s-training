@@ -1,0 +1,20 @@
+apiVersion: crd.projectcalico.org/v1
+kind: IPPool
+metadata:
+  annotations:
+    projectcalico.org/metadata: '{"creationTimestamp":"2025-01-22T17:15:27Z"}'
+  creationTimestamp: "2025-01-22T17:15:27Z"
+  generation: 2
+  name: default-ipv4-ippool2
+  resourceVersion: "40275"
+  uid: b29719d2-31b7-4241-a590-5016073aae54
+spec:
+  allowedUses:
+  - Workload
+  - Tunnel
+  blockSize: 26
+  cidr: 172.168.0.0/16
+  ipipMode: Never
+  natOutgoing: true
+  nodeSelector: topology.kubernetes.io/zone == "us-east-1b"
+  vxlanMode: CrossSubnet
