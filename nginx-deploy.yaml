@@ -25,7 +25,7 @@ metadata:
   name: eks-sample-linux-deployment
   namespace: app1
   labels:
-    app: eks-sample-linux-app
+    app: eks-sample-nginx-app
 spec:
   replicas: 2
   selector:
@@ -34,7 +34,7 @@ spec:
   template:
     metadata:
       labels:
-        app: eks-sample-linux-app
+        app: eks-sample-nginx-app
     spec:
       affinity:
         nodeAffinity:
@@ -62,11 +62,11 @@ metadata:
   name: eks-sample-nginx-service
   namespace: app1
   labels:
-    app: eks-sample-linux-app
+    app: eks-sample-nginx-app
 spec:
   type: LoadBalancer
   selector:
-    app: eks-sample-linux-app
+    app: eks-sample-nginx-app
   ports:
     - protocol: TCP
       port: 80
@@ -78,7 +78,7 @@ metadata:
   name: eks-sample-linux-deployment2
   namespace: app2
   labels:
-    app: eks-sample-linux-app2
+    app: eks-sample-nginx-app2
 spec:
   replicas: 2
   selector:
@@ -87,7 +87,7 @@ spec:
   template:
     metadata:
       labels:
-        app: eks-sample-linux-app2
+        app: eks-sample-nginx-app2
     spec:
       affinity:
         nodeAffinity:
@@ -115,11 +115,11 @@ metadata:
   name: eks-sample-nginx-service2
   namespace: app2
   labels:
-    app: eks-sample-linux-app2
+    app: eks-sample-nginx-app2
 spec:
   type: LoadBalancer
   selector:
-    app: eks-sample-linux-app2
+    app: eks-sample-nginx-app2
   ports:
     - protocol: TCP
       port: 80
