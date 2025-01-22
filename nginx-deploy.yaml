@@ -1,12 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: nginx1
+  name: nginx1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: nginx2
+  name: nginx2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: redis
+  name: redis
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eks-sample-linux-deployment
-  namespace: eks-sample-app
+  namespace: nginx1
   labels:
     app: eks-sample-linux-app
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: eks-sample-nginx-app
@@ -39,7 +60,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eks-sample-nginx-service
-  namespace: eks-sample-app
+  namespace: nginx1
   labels:
     app: eks-sample-linux-app
 spec:
@@ -50,3 +71,56 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-sample-linux-deployment2
+  namespace: nginx2
+  labels:
+    app: eks-sample-linux-app2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-sample-nginx-app2
+  template:
+    metadata:
+      labels:
+        app: eks-sample-linux-app2
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: nginx
+        image: public.ecr.aws/nginx/nginx:1.23
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-sample-nginx-service2
+  namespace: nginx2
+  labels:
+    app: eks-sample-linux-app2
+spec:
+  type: LoadBalancer
+  selector:
+    app: eks-sample-linux-app2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80      
