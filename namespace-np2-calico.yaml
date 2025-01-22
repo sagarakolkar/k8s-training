@@ -1,0 +1,23 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: allow-app2-to-app2
+  namespace: app2
+spec:
+  selector: app == 'eks-sample-nginx-app2'
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source:
+        selector: app == 'eks-sample-nginx-app2'
+      destination:
+        ports:
+          - 80
+    - action: Allow
+      protocol: TCP
+      source:
+        selector: app == 'eks-sample-nginx-app'
+        namespaceSelector: kubernetes.io/metadata.name == 'app1'
+      destination:
+        ports:
+          - 80
