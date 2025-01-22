@@ -4,12 +4,12 @@ metadata:
   name: allow-app2-to-app2
   namespace: app2
 spec:
-  selector: color == 'red'
+  selector: app == 'eks-sample-nginx-app2'
   ingress:
     - action: Allow
       protocol: TCP
       source:
-        selector: color == 'blue'
+        selector: app == 'eks-sample-nginx-app2'
       destination:
         ports:
           - 80
