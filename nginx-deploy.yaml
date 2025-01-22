@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: nginx1
-  name: nginx1
+    kubernetes.io/metadata.name: app1
+  name: app1
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    kubernetes.io/metadata.name: nginx2
-  name: nginx2
+    kubernetes.io/metadata.name: app2
+  name: app2
 ---
 apiVersion: v1
 kind: Namespace
@@ -23,7 +23,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eks-sample-linux-deployment
-  namespace: nginx1
+  namespace: app1
   labels:
     app: eks-sample-linux-app
 spec:
@@ -60,7 +60,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eks-sample-nginx-service
-  namespace: nginx1
+  namespace: app1
   labels:
     app: eks-sample-linux-app
 spec:
@@ -76,7 +76,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eks-sample-linux-deployment2
-  namespace: nginx2
+  namespace: app2
   labels:
     app: eks-sample-linux-app2
 spec:
@@ -113,7 +113,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: eks-sample-nginx-service2
-  namespace: nginx2
+  namespace: app2
   labels:
     app: eks-sample-linux-app2
 spec:
