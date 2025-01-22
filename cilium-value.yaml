@@ -1,0 +1,17 @@
+eni:
+  enabled: true
+ipam:
+  mode: eni
+egressMasqueradeInterfaces: eth0
+tunnel: disabled
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        # This is to limit cilium only running on the nodes
+        # WITHOUT label cni-plugin=aws
+        - key: cni-plugin
+          operator: NotIn
+          values:
+          - aws
