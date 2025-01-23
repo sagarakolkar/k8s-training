@@ -12,13 +12,6 @@ metadata:
     kubernetes.io/metadata.name: app2
   name: app2
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    kubernetes.io/metadata.name: redis
-  name: redis
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +20,7 @@ metadata:
   labels:
     app: eks-sample-nginx-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: eks-sample-nginx-app
@@ -70,7 +63,7 @@ metadata:
   labels:
     app: eks-sample-nginx-app2
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: eks-sample-nginx-app2
