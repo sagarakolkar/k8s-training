@@ -1,0 +1,11 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: deny-blue
+spec:
+  selector: color == 'red'
+  ingress:
+    - action: Deny
+      protocol: TCP
+      source:
+        selector: color == 'blue'
