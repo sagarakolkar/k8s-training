@@ -79,6 +79,7 @@ spec:
         - name: http
           containerPort: 80
         imagePullPolicy: IfNotPresent
+      serviceAccountName: irsa-test  
       nodeSelector:
         kubernetes.io/os: linux
 ---
