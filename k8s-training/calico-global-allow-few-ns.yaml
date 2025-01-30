@@ -6,6 +6,6 @@ spec:
   order: 10
   selector: app == 'nginx-app1'
   ingress:
-    - action: Deny
+    - action: Allow
       source:
         namespaceSelector: allowed == 'nginx'
