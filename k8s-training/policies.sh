@@ -4,6 +4,7 @@ wget -qO- http://nginx-app2.default.svc.cluster.local
 
 # Block all ingress
 kubectl apply -f normal-deny-all-ingress.yaml
+kubectl get NetworkPolicy
 kubectl exec -it busybox -- sh
 wget -qO- http://nginx-app2.default.svc.cluster.local
 
@@ -24,11 +25,16 @@ chmod +x ./calicoctl
 
 #Apply calico global policy 
 ./calicoctl apply -f calico-global-policy.yaml
+./calicoctl get GlobalNetworkPolicy
+
 kubectl exec -it busybox-nginx -- sh
 wget -qO- http://nginx-app1.app1.svc.cluster.local
 
 #Apply calico global policy - allow few ns
+kubectl label namespace default allowed-
 kubectl apply -f calico-global-allow-few-ns.yaml
+./calicoctl get GlobalNetworkPolicy
+
 kubectl exec -it busybox-nginx -- sh
 wget -qO- http://nginx-app1.app1.svc.cluster.local
 
