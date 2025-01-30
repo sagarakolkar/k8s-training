@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app2
+  namespace: default
+  labels:
+    app: nginx-app2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-app2
+  template:
+    metadata:
+      labels:
+        app: nginx-app2
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine3.20
+        ports:
+        - name: http
+          containerPort: 80
+        imagePullPolicy: IfNotPresent
+      serviceAccountName: irsa-test  
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-app2
+  namespace: default
+  labels:
+    app: nginx-app2
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx-app2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80      
