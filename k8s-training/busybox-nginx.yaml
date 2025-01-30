@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: busybox
+  name: busybox-nginx
   namespace: default
   labels:
     allowed: nginx
