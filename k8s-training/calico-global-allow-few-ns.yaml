@@ -1,0 +1,11 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: deny-nginx-app1-allos-few-ns
+spec:
+  order: 10
+  selector: app == 'nginx-app1'
+  ingress:
+    - action: Deny
+      source:
+        namespaceSelector: allowed == 'nginx'
