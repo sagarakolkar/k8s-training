@@ -29,3 +29,11 @@ kubectl get sa irsa-test
 
 # Describe Service Account
 kubectl describe sa irsa-test
+
+# Install nginx pod
+kubectl apply -f nginx-irsa.yaml
+
+# Install AWS Cli in Pod
+apk add --no-cache aws-cli
+
+
