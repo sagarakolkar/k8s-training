@@ -3,6 +3,7 @@ kind: GlobalNetworkPolicy
 metadata:
   name: deny-nginx-app1
 spec:
+  order: 10
   selector: app == 'nginx-app1'
   ingress:
     - action: Deny
