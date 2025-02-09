@@ -22,7 +22,7 @@
                 "sqs:*",
                 "elasticloadbalancing:*",
                 "events:*",
-                "msk:*"
+                "cloudshell:*"
             ],
             "Resource": "*"
         }
