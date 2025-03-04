@@ -17,6 +17,8 @@
                 "kms:*",
                 "glue:*",
                 "ebs:*",
+                "redshift:*",
+                "dynamodb:*",
                 "secretsmanager:*",
                 "sns:*",
                 "sqs:*",
