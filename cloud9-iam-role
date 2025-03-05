@@ -18,6 +18,7 @@
                 "glue:*",
                 "ebs:*",
                 "redshift:*",
+                "redshift-data:*",
                 "dynamodb:*",
                 "secretsmanager:*",
                 "sns:*",
